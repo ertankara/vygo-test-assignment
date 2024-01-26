@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Message } from 'src/app/interfaces';
+import { Firestore, collection, addDoc, collectionData, query, orderBy, CollectionReference } from '@angular/fire/firestore'
+import { Observable, delay, map } from 'rxjs';
 
 @Component({
   selector: 'app-chat-message-list',
@@ -7,25 +9,29 @@ import { Message } from 'src/app/interfaces';
   styleUrls: ['./chat-message-list.component.scss'],
 })
 export class ChatMessageListComponent {
-  private _messages: Message[] = [];
+  messages$: Observable<Message[]>;
+  isEmpty$: Observable<boolean>;
+  messagesCollection: CollectionReference = collection(this.firestore, 'messages');
 
-  constructor() {
-    this._messages = []
-  }
-
-  public get messages() {
-    return this._messages.reverse();
+  constructor(private firestore: Firestore) {
+    const orderedMessages = query(this.messagesCollection, orderBy('date', 'asc'));
+    this.messages$ = collectionData(orderedMessages).pipe() as Observable<Message[]>
+    this.isEmpty$ = this.messages$.pipe(map(messages => messages.length === 0));
   }
 
   onMessage(newMessage: string) {
-    // TODO: Send message to Firebase collection
-    this._messages.push({
+    if (!newMessage) {
+      return;
+    }
+
+    addDoc(this.messagesCollection, <Message>{
       name: 'Ertan Kara',
+      email: 'kara.ertan9@gmail.com',
       avatar: 'https://picsum.photos/80/80?random=2',
-      date: new Date().toISOString(),
+      date: { seconds: new Date().getTime() / 1000 },
       message: newMessage,
-    })
-  }
+    });
+  };
 
   loadMessages(...arg: any) {
     // Load older messages

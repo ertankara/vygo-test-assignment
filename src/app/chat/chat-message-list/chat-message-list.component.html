@@ -4,15 +4,15 @@
 </ion-infinite-scroll>
 
 <ion-list lines="none">
-  <ion-item *ngIf="messages.length === 0">
+  <ion-item *ngIf="isEmpty$ | async">
     <p>There are no messages yet...</p>
   </ion-item>
-  <ion-item [ngClass]="{'extra-margin': isLast, 'self-message': true}" *ngFor="let message of messages; let isLast = last">
+  <ion-item [ngClass]="{'extra-margin': isLast, 'self-message': true}" *ngFor="let message of messages$ | async; let isLast = last">
     <ion-avatar slot="start">
       <img src="{{message.avatar}}">
     </ion-avatar>
     <ion-label>
-      <h2>{{message.name}} {{ message.date | date:'short' }}</h2>
+      <h2>{{message.name}} {{ message.date.seconds * 1000 | date:'short' }}</h2>
       <p>{{message.message}}</p>
     </ion-label>
   </ion-item>
