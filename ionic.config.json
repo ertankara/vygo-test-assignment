@@ -1,0 +1,7 @@
+{
+  "name": "vygoTestAssignment",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
