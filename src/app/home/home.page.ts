@@ -9,10 +9,14 @@ import { IonContent } from '@ionic/angular';
 })
 export class HomePage implements AfterViewInit {
   @ViewChild(IonContent) content: IonContent | undefined;
-  messages: Message[] = [];
+  private _messages: Message[] = [];
+
+  public get messages() {
+    return this._messages.reverse();
+  }
 
   constructor() {
-    this.messages = [
+    this._messages = [
       { name: 'John Doe', avatar: 'https://picsum.photos/80/80?random=1', date: '2024-01-26', message: 'Good morning!' },
       { name: 'Jane Doe', avatar: 'https://picsum.photos/80/80?random=1', date: '2024-01-26', message: 'Good morning, what a lovely day!' },
       { name: 'Mike Doe', avatar: 'https://picsum.photos/80/80?random=1', date: '2024-01-26', message: 'Indeed :)' },
@@ -21,7 +25,7 @@ export class HomePage implements AfterViewInit {
 
   loadMessages(...arg: any) {
     setTimeout(() => {
-      this.messages.unshift(...[
+      this._messages.push(...[
         { name: 'Mike Doe', avatar: 'https://picsum.photos/80/80?random=1', date: '2024-01-26', message: 'Indeed :)' },
         { name: 'Mike Doe', avatar: 'https://picsum.photos/80/80?random=1', date: '2024-01-26', message: 'Indeed :)' },
         { name: 'Mike Doe', avatar: 'https://picsum.photos/80/80?random=1', date: '2024-01-26', message: 'Indeed :)' },
