@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "vygo-test-assignment-ertan": {
+      "hosting": {
+        "app": [
+          "vygo-test-assignment-ertan"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "vygo-test-assignment-ertan"
+  }
+}
