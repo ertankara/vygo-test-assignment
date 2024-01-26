@@ -7,32 +7,5 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-infinite-scroll position="top" threshold="100px" (ionInfinite)="loadMessages($event)">
-    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading messages">
-    </ion-infinite-scroll-content>
-  </ion-infinite-scroll>
-
-  <ion-list lines="none">
-    <ion-item [ngClass]="{'extra-margin': isLast}" *ngFor="let message of messages; let isLast = last">
-      <ion-avatar slot="start">
-        <img src="{{message.avatar}}">
-      </ion-avatar>
-      <ion-label>
-        <h2>{{message.name}}</h2>
-        <p>{{message.message}}</p>
-      </ion-label>
-    </ion-item>
-
-    <ion-grid>
-      <ion-row>
-        <ion-col class="ion-align-self-center" size="10">
-          <ion-input placeholder="Type your message here..."></ion-input>
-        </ion-col>
-        <ion-col class="ion-align-self-center ion-text-center" size="2">
-          <ion-button class="ion-align-self-center">send</ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-
-  </ion-list>
+  <app-chat-message-list></app-chat-message-list>
 </ion-content>
