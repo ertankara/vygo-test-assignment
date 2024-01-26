@@ -19,7 +19,6 @@ export class ChatMessageListComponent {
 
   onMessage(newMessage: string) {
     // TODO: Send message to Firebase collection
-    console.log('new message', newMessage);
     this._messages.push({
       name: 'Ertan Kara',
       avatar: 'https://picsum.photos/80/80?random=2',

@@ -7,7 +7,7 @@
   <ion-item *ngIf="messages.length === 0">
     <p>There are no messages yet...</p>
   </ion-item>
-  <ion-item [ngClass]="{'extra-margin': isLast}" *ngFor="let message of messages; let isLast = last">
+  <ion-item [ngClass]="{'extra-margin': isLast, 'self-message': true}" *ngFor="let message of messages; let isLast = last">
     <ion-avatar slot="start">
       <img src="{{message.avatar}}">
     </ion-avatar>
