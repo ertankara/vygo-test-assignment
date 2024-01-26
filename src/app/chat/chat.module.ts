@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ChatInputComponent } from './chat-input/chat-input.component';
 import { ChatMessageListComponent } from './chat-message-list/chat-message-list.component';
 import { IonicModule } from '@ionic/angular';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -14,6 +15,7 @@ import { IonicModule } from '@ionic/angular';
   imports: [
     CommonModule,
     IonicModule,
+    FormsModule,
   ],
   exports: [ChatMessageListComponent],
 })

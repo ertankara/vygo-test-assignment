@@ -30,6 +30,11 @@ export class ChatMessageListComponent {
     return this._messages.reverse();
   }
 
+  onMessage(newMessage: string) {
+    // TODO: Send message to Firebase collection
+    console.log('new message', newMessage);
+  }
+
   loadMessages(...arg: any) {
     setTimeout(() => {
       this._messages.push(...[
