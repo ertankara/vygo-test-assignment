@@ -13,11 +13,13 @@ export class ChatMessageListComponent {
   messages$: Observable<Message[]>;
   isEmpty$: Observable<boolean>;
   messagesCollection: CollectionReference = collection(this.firestore, 'messages');
+  selfEmail: string | undefined;
 
   constructor(private firestore: Firestore, private authService: AuthService) {
     const orderedMessages = query(this.messagesCollection, orderBy('date', 'asc'));
     this.messages$ = collectionData(orderedMessages).pipe() as Observable<Message[]>
     this.isEmpty$ = this.messages$.pipe(map(messages => messages.length === 0));
+    this.selfEmail = this.authService.user?.email ?? undefined;
   }
 
   onMessage(newMessage: string) {
