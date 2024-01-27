@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Message } from 'src/app/interfaces';
 import { Firestore, collection, addDoc, collectionData, query, orderBy, CollectionReference } from '@angular/fire/firestore'
 import { Observable, delay, map } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-chat-message-list',
@@ -13,7 +14,7 @@ export class ChatMessageListComponent {
   isEmpty$: Observable<boolean>;
   messagesCollection: CollectionReference = collection(this.firestore, 'messages');
 
-  constructor(private firestore: Firestore) {
+  constructor(private firestore: Firestore, private authService: AuthService) {
     const orderedMessages = query(this.messagesCollection, orderBy('date', 'asc'));
     this.messages$ = collectionData(orderedMessages).pipe() as Observable<Message[]>
     this.isEmpty$ = this.messages$.pipe(map(messages => messages.length === 0));
@@ -25,9 +26,9 @@ export class ChatMessageListComponent {
     }
 
     addDoc(this.messagesCollection, <Message>{
-      name: 'Ertan Kara',
-      email: 'kara.ertan9@gmail.com',
-      avatar: 'https://picsum.photos/80/80?random=2',
+      name: this.authService.user?.displayName,
+      email: this.authService.user?.email,
+      avatar: this.authService.user?.photoURL,
       date: { seconds: new Date().getTime() / 1000 },
       message: newMessage,
     });
